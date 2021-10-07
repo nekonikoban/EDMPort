@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="https://cdn.iconscout.com/icon/free/png-256/queue-music-1779820-1513985.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDMPort</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/templatemo-ocean-vibes.css">
+    <link rel="stylesheet" href="player.css">
+    <link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/templatemo-script.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="js/jscolor.js"></script>
+</head>
+
+<body>
+
+    <div id="focus" class="blanket" style="opacity: 0;"></div>
+    <header id="header" class="tm-site-header">
+        <h1 id="headertext" class="tm-mt-0 tm-mb-15">
+            <span class="tm-color-primary"></span>
+            <span id="header-text" class="tm-color-purple">EDM <sub>port</sub>𝅘𝅥𝅰</span>
+        </h1>
+        <em id="headerem" class="tm-tagline tm-color-light-gray" style="visibility: hidden;">Each memory has a
+            soundtrack of
+            it's own, find your memory down there</em>
+    </header>
+    <div id="space-1" style="height: 70px;">
+    </div>
+    <div id="tm-video-container">
+        <div id="player" class="audio-player">
+            <div class="timeline">
+                <div class="progress"></div>
+            </div>
+            <div class="controls">
+                <div class="play-container">
+                    <div class="toggle-play icono-play">
+                    </div>
+                </div>
+                <div class="toggle-repeat"><i class="fas fa-redo-alt fa-lg"></i></div>
+                <div class="toggle-gallery" style="display: none;"><i class="fas fa-headphones fa-lg"></i></div>
+                <div class="toggle-api" style="display: none;"><i class="fas fa-server fa-lg"></i></div>
+                <div class="time">
+                    <div class="current">0:00</div>
+                    <div class="divider">/</div>
+                    <div class="length"></div>
+                </div>
+                <div id="playerTrackDiv" class="track-name">Track</div>
+                <!--<input id="colorpicker" data-jscolor="">-->
+                <div class="toggle-style"><i class="far fa-eye fa-lg"></i></div>
+                <div class="toggle-focus"><i class="fas fa-film fa-lg"></i></div>
+                <div class="volume-container">
+                    <div class="volume-button">
+                        <div class="volume icono-volumeMedium"></div>
+                    </div>
+                    <div class="volume-slider">
+                        <div class="volume-percentage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="drag&drop" class="drop-zone">
+            <span id="dragndropbox" class="drop-zone__prompt">Drag & drop or click to upload, or play from
+                Gallery & API</span>
+            <input id="thefile" accept="audio/*" type="file" class="drop-zone__input">
+        </div>
+        <canvas id="canvas"></canvas>
+    </div>
+    <div id="space-2" style="height: 20px;"></div>
+    <div id="popups" class="tm-container" style="visibility: hidden;">
+        <nav class="tm-main-nav">
+            <ul id="inline-popups">
+                <li class="tm-nav-item">
+                    <a id="inline-intro" href="#intro" data-effect="mfp-move-from-top" class="tm-nav-link">
+                        Introduction
+                        <i class="fas fa-3x fa-compact-disc"></i>
+                    </a>
+                </li>
+                <li class="tm-nav-item">
+                    <a id="inline-gallery" href="#gallery" data-effect="mfp-move-from-top" class="tm-nav-link"
+                        id="tm-gallery-link" onclick="fadeInGallery()">
+                        Gallery
+                        <i class="fas fa-3x fa-headphones"></i>
+                    </a>
+                </li>
+                <li class="tm-nav-item">
+                    <a id="inline-api" href="#api" data-effect="mfp-move-from-top" class="tm-nav-link">
+                        API
+                        <i class="fas fa-3x fa-server"></i>
+                    </a>
+                </li>
+                <li class="tm-nav-item">
+                    <a id="inline-about" href="#about" data-effect="mfp-move-from-top" class="tm-nav-link">
+                        About
+                        <i class="far fa-3x fa-address-card"></i>
+                    </a>
+                </li>
+                <li class="tm-nav-item">
+                    <a id="inline-contact" href="#contact" data-effect="mfp-move-from-top" class="tm-nav-link">
+                        Contact
+                        <i class="far fa-3x fa-comments"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Popup itself -->
+        <div id="intro" class="popup mfp-with-anim mfp-hide tm-bg-gray">
+            <a href="#" class="tm-close-popup">
+                Home
+                <i class="fas fa-times"></i>
+            </a>
+            <div class="tm-row tm-intro-row">
+                <img id="introImage" src="img/intro.jpg" alt="Image" class="tm-intro-img">
+                <div class="tm-col tm-bg-white tm-intro-pad">
+                    <h2 class="tm-color-primary tm-page-title">Short Introduction</h2>
+                    <div class="tm-row tm-content-row">
+                        <div class="tm-col-6 tm-intro-col-l">
+                            <p>
+                                You can either <i>drag&drop</i> your audio/mp3 file into <span
+                                    style="color: #309AFD; font-weight: bold;">marked area</span>
+                                ,or just click on it and find your audio file manually.
+                                You can also play tracks from Deezer API & local database which includes about 60
+                                samples.
+                            </p>
+                            <br>
+                            <p>
+                                Player track has regular play/repeat/volume/timeline controls including animation styles
+                                <i class="far fa-eye" style="color: #29bbff;"></i>
+                                and cinematic effect <i class="fas fa-film" style="color: #29bbff;"></i> <br>
+                                When audio is loaded simply click on the song name to copy it to the clipboard.
+                            </p>
+                        </div>
+                        <div class="tm-col-6">
+                            <p class="tm-mb-80">
+                                If you are want to listen to my personal collection next page will bring you to the
+                                gallery
+                                where you can play tracks from a local database.
+                            </p>
+                            <div class="tm-text-center">
+                                <a href="#" class="tm-btn tm-btn-primary mfp-prevent-close tm-btn-next">
+                                    Gallery
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="gallery" class="popup mfp-with-anim mfp-hide tm-bg-gray">
+            <a href="#" class="tm-close-popup">
+                Home
+                <i class="fas fa-times"></i>
+            </a>
+            <div class="tm-row tm-gallery-row">
+                <div class="tm-gallery">
+                    <div id="gallery-container" class="tm-gallery-container">
+                        <!--Figure Elements-->
+                    </div>
+                </div>
+                <!-- Gallery nav-->
+                <div class="tm-col tm-gallery-right">
+                    <h2 class="tm-color-primary tm-mt-35 tm-page-title">Gallery</h2>
+                    <div class="tm-gallery-right-inner">
+                        <ul class="tm-gallery-links">
+                            <li>
+                                <a href="#" class="active tm-gallery-link" data-filter="*">
+                                    <i class="fas fa-layer-group tm-gallery-link-icon"></i>
+                                    All
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="tm-gallery-link" data-filter="trance">
+                                    <i class="fas fa-magic tm-gallery-link-icon"></i>
+                                    Trance
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="tm-gallery-link" data-filter="vocal">
+                                    <i class="fas fa-microphone tm-gallery-link-icon"></i>
+                                    Vocal
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="tm-gallery-link" data-filter="eurobeat">
+                                    <i class="fas fa-globe-europe tm-gallery-link-icon"></i>
+                                    Eurobeat
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="tm-gallery-link" data-filter="house">
+                                    <i class="fas fa-house-user tm-gallery-link-icon"></i>
+                                    House
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="tm-gallery-link" data-filter="techno">
+                                    <i class="fas fa-record-vinyl tm-gallery-link-icon"></i>
+                                    Techno
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="tm-gallery-link" data-filter="trap">
+                                    <i class="fas fa-volume-up tm-gallery-link-icon"></i>
+                                    Trap
+                                </a>
+                            </li>
+                        </ul>
+                        <p>
+                            <span style="color: #29bbff"> NOTE: </span> Loading tracks from gallery (local database) may
+                            take few moments to load.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="api" class="popup mfp-with-anim mfp-hide tm-bg-gray">
+            <a href="#" class="tm-close-popup">
+                Home
+                <i class="fas fa-times"></i>
+            </a>
+            <div class="tm-api-inner">
+                <!--<img src="img/deezer.png" class="deezerImg">-->
+                <br>
+                <input id="searchBox" type="search" class="search" autocomplete="off" placeholder=" Search Deezer..." />
+                <br>
+                <main class="main-element"></main>
+                <br>
+                <p style="text-align: center;">
+                    Deezer API / 30 Second samples /
+                    Output top 25 songs/tracks from a query.
+                    <br>
+                    You can listen full track provided in <b> Direct Link </b> under each sample.
+                </p>
+            </div>
+        </div>
+
+        <div id="about" class="popup mfp-with-anim mfp-hide tm-bg-gray">
+            <a href="#" class="tm-close-popup">
+                Home
+                <i class="fas fa-times"></i>
+            </a>
+            <h2 class="tm-color-primary tm-about-col tm-mb-40 tm-page-title">About this project</h2>
+            <div class="tm-row tm-about-row">
+                <div class="tm-col tm-about-col tm-about-left">
+                    <img src="img/about.gif" alt="Image" class="tm-mb-30">
+                    <p class="tm-mb-40">
+                        The visualisations are drawn on canvas using <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame"
+                            target="_blank" style="color: #309AFD">RAF</a> and on top of it
+                        is the <i>drag&drop</i> zone in which you can either click and choose manully
+                        audio file from your device, or just drag it to the dashed borderline.
+                        The Track element on player will allow you to copy audio track name once you have succesfully
+                        loaded one by simply clicking on it.
+                        <br> <br> <br>
+                        <img src="img/player_about.png" alt="Image" class="tm-mb-30">
+                    </p>
+                </div>
+                <div class="tm-col tm-about-col">
+                    <p class="tm-mb-40">
+                        <a href="https://typeitjs.com/" target="_blank" style="color: #309AFD;"> „TypeIt”</a> is JS
+                        library used
+                        used for machine or human-like typing (depending on implementation) in the main header and on
+                        the <span style="color: #309AFD;">Contact</span> popup on bottom-right.
+                        jQuery is used on parts when I felt it was more efficient, otherwise vanilla JavaScript.<br>
+                    </p>
+                    <p class="tm-mb-40">
+                        Audio player, visualisations and everything else is made from scratch including <i>email
+                            form</i> and functionality which
+                        you can see by pressing on button below.
+                    </p>
+                    <p class="tm-mb-40">
+                        If you need anything else regarding this project, additional information,
+                        or maybe just a casual conversation you can contact me via email form below. <a rel="nofollow"
+                            href="contact" target="_parent">contact page</a>. </p>
+                    <a href="#" class="tm-btn tm-btn-primary mfp-prevent-close tm-btn-contact tm-mb-40">
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact" class="popup mfp-with-anim mfp-hide tm-bg-gray">
+            <a href="#" class="tm-close-popup">
+                Home
+                <i class="fas fa-times"></i>
+            </a>
+            <h2 class="tm-contact-col tm-color-primary tm-page-title tm-mb-40">Contact Me</h2>
+            <div class="tm-row tm-contact-row">
+                <div class="tm-col tm-contact-col">
+
+                    <form id="contact-form" action="" method="POST" class="tm-contact-form">
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-control rounded-0" placeholder="Full Name"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <input id="email" type="email" name="email" class="form-control rounded-0"
+                                placeholder="Email" required />
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="contact-select" name="inquiry">
+                                <option value="Job Inquiry">Job Inquiry &amp; Positioning</option>
+                                <option value="Meeting Request">Meeting Request</option>
+                                <option selected value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="8" name="message" class="form-control rounded-0" placeholder="Message"
+                                required=></textarea>
+                        </div>
+
+                        <div class="form-group tm-text-right">
+                            <input type="button" class="tm-btn tm-btn-primary" value="Send"
+                                onclick="validate();"></button>
+                        </div>
+                        <div class="col-sm-12">
+                            <div id="mailSuccess"
+                                class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show"
+                                style="display: none;">
+                                <i class="start-icon far fa-check-circle faa-tada animated"></i>
+                                <strong id="emailSuccess" class="font__weight-semibold">Successful!</strong>
+                            </div>
+                        </div>
+                        <div id="mailFail" class="col-sm-12" style="display: none;">
+                            <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show"
+                                role="alert" data-brk-library="component__alert">
+                                <i class="start-icon far fa-times-circle faa-pulse animated"></i>
+                                <strong id="emailFail" class="font__weight-semibold">Please fill the empty
+                                    blocks.</strong>
+                            </div>
+                        </div>
+                        <div id="mailFormat" class="col-sm-12" style="display: none;">
+                            <div class="alert fade alert-simple alert-warning alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show"
+                                role="alert" data-brk-library="component__alert">
+                                <i class="start-icon fa fa-exclamation-triangle faa-flash animated"></i>
+                                <strong class="font__weight-semibold">Incorecct e-mail format.</strong>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tm-col tm-contact-col tm-contact-col-r">
+                    <!-- GMap -->
+                    <div class="mapouter tm-mb-40">
+                        <div class="gmap_canvas">
+                            <iframe width="100%" height="520" id="gmap_canvas"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5754.569538007763!2d18.3693562!3d43.849926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4758c96c87bb2e47%3A0xba8cc5d0e9ca0406!2s%C4%8Cengi%C4%87%20vila%2C%20Sarajevo%2071000!5e0!3m2!1shr!2sba!4v1619559722029!5m2!1shr!2sba"
+                                loading="lazy" frameborder="0" scrolling="yes" marginheight="0" marginwidth="0">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <!-- Address -->
+                    <address class="tm-mb-40">
+                        Čengić Vila (Sarajevo)<br>
+                    </address>
+
+                    <!-- Other -->
+                    <ul class="tm-contact-links">
+                        <li>
+                            <a href="tel:+38761369362">
+                                <i class="fas fa-phone tm-contact-link-icon"></i>
+                                Tel: 061/369/362
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:dario.damjanovic@mail.com">
+                                <i class="fas fa-at tm-contact-link-icon"></i>
+                                Email: Dario Damjanović
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/nekonikoban" target="_blank">
+                                <i class="fab fa-github tm-contact-link-icon"></i>
+                                Github
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/dario-damjanovic/" target="_blank">
+                                <i class="fab fa-linkedin-in tm-contact-link-icon"></i>
+                                Linkedin
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"> </script>
+</body>
+
+</html>
