@@ -546,10 +546,8 @@ function initVisualiser() {
 
     if (mobileDevice)
         showPlayer()
-    showTrackNameOnH2()
-    showHeaderGlowOnAudioPlay()
 
-    document.getElementById("dragndropbox").innerHTML = ""
+    document.getElementById("dragndropbox").innerHTML = "Loading"
     document.getElementById("drag\&drop").style.border = "1px dashed rgba(2, 154, 192, 0)"
 
 
@@ -801,9 +799,15 @@ function initVisualiser() {
         }
     }
 
+    var trackNameLoaded = false
     const centerHeight = 474
     var tempOpacity = 0, rafCount = 0
     renMedia = function () {
+        if(!trackNameLoaded){
+            showTrackNameOnH2()
+            showHeaderGlowOnAudioPlay()
+            trackNameLoaded = !trackNameLoaded
+        }
         requestAnimationFrame(renMedia)
         x = 0
 
